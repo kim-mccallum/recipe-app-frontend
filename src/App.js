@@ -6,6 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 
+import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Users from "./user/pages/Users";
 import NewRecipe from "./recipes/pages/NewRecipe";
 
@@ -13,15 +14,18 @@ const App = () => {
   return (
     // moves through routes top to bottom and redirects if nothing catches
     <Router>
-      <Switch>
-        <Route path="/" exact>
-          <Users />
-        </Route>
-        <Route path="/recipes/new" exact>
-          <NewRecipe />
-        </Route>
-        <Redirect to="/" />
-      </Switch>
+      <MainNavigation />
+      <main>
+        <Switch>
+          <Route path="/" exact>
+            <Users />
+          </Route>
+          <Route path="/recipes/new" exact>
+            <NewRecipe />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </main>
     </Router>
   );
 };
