@@ -9,7 +9,7 @@ const RecipeList = (props) => {
   // check if you don't have items
   if (props.items.length === 0) {
     return (
-      <div className="place-list center">
+      <div className="recipe-list center">
         <Card>
           <h2>No recipes found. Maybe create one?</h2>
         </Card>
@@ -17,7 +17,7 @@ const RecipeList = (props) => {
     );
   }
   return (
-    <ul className="place-list">
+    <ul className="recipe-list">
       {props.items.map((recipe) => (
         <RecipeItem
           key={recipe.id}

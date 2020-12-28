@@ -1,5 +1,6 @@
 // fetch and render all the places from a user
 import React from "react";
+import { useParams } from "react-router-dom";
 import RecipeList from "../components/RecipeList";
 
 const DUMMY_RECIPES = [
@@ -31,7 +32,11 @@ const DUMMY_RECIPES = [
 ];
 
 const UserRecipes = () => {
-  return <RecipeList items={DUMMY_RECIPES} />;
+  const userId = useParams().userId;
+  const loadedRecipes = DUMMY_RECIPES.filter(
+    (recipe) => recipe.creator === userId
+  );
+  return <RecipeList items={loadedRecipes} />;
 };
 
 export default UserRecipes;
