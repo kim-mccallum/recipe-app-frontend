@@ -1,7 +1,14 @@
 import React from "react";
+import Input from "../../shared/components/FormElements/Input";
+
+import "./NewRecipe.css";
 
 const NewRecipe = () => {
-  return <h2>NewRecipe works!</h2>;
+  return (
+    <form className="recipe-form">
+      <Input element="input" type="text" label="Title" />
+    </form>
+  );
 };
 
 export default NewRecipe;
