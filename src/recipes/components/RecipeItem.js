@@ -20,7 +20,9 @@ const RecipeItem = (props) => {
         footer={<Button onClick={closeRecipeHandler}>CLOSE</Button>}
       >
         <div className="recipe-container">
-          <h2>THE RECIPE!</h2>
+          <h3>{props.description}</h3>
+          <p>{`Ingredients ${props.ingredients}`}</p>
+          <p>{props.instructions}</p>
         </div>
       </Modal>
       <li className="recipe-item">
