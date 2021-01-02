@@ -38,7 +38,7 @@ const RecipeItem = (props) => {
             <Button inverse onClick={openRecipeHandler}>
               VIEW RECIPE
             </Button>
-            <Button to={`/places/${props.id}`}>EDIT</Button>
+            <Button to={`/recipes/${props.id}`}>EDIT</Button>
             <Button danger>DELETE</Button>
           </div>
         </Card>

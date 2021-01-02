@@ -1,17 +1,15 @@
 import React, { useReducer, useEffect } from "react";
-import { validate } from "../../util/validators";
 
+import { validate } from "../../util/validators";
 import "./Input.css";
 
-//reducer function outside as it doesn't depend - takes current state and action
 const inputReducer = (state, action) => {
   switch (action.type) {
     case "CHANGE":
       return {
-        //copy all key/value pairs from old state
         ...state,
         value: action.val,
-        isValid: validate(action.val, action.validators), //placeholder for now
+        isValid: validate(action.val, action.validators),
       };
     case "TOUCH": {
       return {
@@ -23,21 +21,19 @@ const inputReducer = (state, action) => {
       return state;
   }
 };
+
 const Input = (props) => {
-  //useReducer - allows you to manage state and also give you a function to update/rerender
-  //useReducer allows you to handle more complex updates for two components with interconnected state
-  //returns two elements - current state and a dispatch function
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: "",
+    value: props.initialValue || "",
     isTouched: false,
-    isValid: false,
+    isValid: props.initialValid || false,
   });
 
   const { id, onInput } = props;
   const { value, isValid } = inputState;
-  //FIX
+
   useEffect(() => {
-    props.onInput(id, value, isValid);
+    onInput(id, value, isValid);
   }, [id, value, isValid, onInput]);
 
   const changeHandler = (event) => {

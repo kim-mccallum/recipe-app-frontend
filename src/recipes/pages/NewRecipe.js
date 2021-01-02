@@ -5,37 +5,13 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
+import { useForm } from "../../shared/hooks/form-hook";
 
-import "./NewRecipe.css";
-
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "INPUT_CHANGE":
-      let formIsValid = true;
-      for (const inputId in state.inputs) {
-        //ensure that if one input is false, the whole form is invalid
-        if (inputId === action.inputId) {
-          formIsValid = formIsValid && action.isValid;
-        } else {
-          formIsValid = formIsValid && state.inputs[inputId].isValid;
-        }
-      }
-      return {
-        ...state,
-        inputs: {
-          ...state.inputs,
-          [action.inputId]: { value: action.value, isValid: action.isValid },
-        },
-        isValid: formIsValid,
-      };
-    default:
-      return state;
-  }
-};
+import "./RecipeForm.css";
 
 const NewRecipe = () => {
-  const [formState, dispatch] = useReducer(formReducer, {
-    inputs: {
+  const [formState, inputHandler] = useForm(
+    {
       title: {
         value: "",
         isValid: false,
@@ -44,22 +20,26 @@ const NewRecipe = () => {
         value: "",
         isValid: false,
       },
+      ingredients: {
+        value: "",
+        isValid: false,
+      },
+      instructions: {
+        value: "",
+        isValid: false,
+      },
     },
-    isValid: false,
-  });
-  //useCallback will store the function so that if the component rerenders, this fn object won't get recreated
-  //this avoids an infinite loop
-  const inputHandler = useCallback((id, value, isValid) => {
-    dispatch({
-      type: "INPUT_CHANGE",
-      value: value,
-      isValid: isValid,
-      inputId: id,
-    });
-  }, []);
+    false
+  );
+
+  const recipeSubmitHandler = (event) => {
+    event.preventDefault();
+    // no backend yet - for now just log/check it later send this to the backend
+    console.log(formState.inputs);
+  };
 
   return (
-    <form className="recipe-form">
+    <form className="recipe-form" onSubmit={recipeSubmitHandler}>
       <Input
         id="title"
         element="input"
@@ -75,6 +55,22 @@ const NewRecipe = () => {
         label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter a description of at least 5 characters."
+        onInput={inputHandler}
+      />
+      <Input
+        id="ingredients"
+        element="textarea"
+        label="Ingredients"
+        validators={[VALIDATOR_REQUIRE()]}
+        errorText="Please enter a list of ingredients for this recipe."
+        onInput={inputHandler}
+      />
+      <Input
+        id="instructions"
+        element="textarea"
+        label="Recipe Instructions"
+        validators={[VALIDATOR_REQUIRE()]}
+        errorText="Please enter the instructions for this recipe."
         onInput={inputHandler}
       />
       <Button type="submit" disabled={!formState.isValid}>

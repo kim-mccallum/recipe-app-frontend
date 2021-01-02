@@ -10,6 +10,7 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Users from "./user/pages/Users";
 import NewRecipe from "./recipes/pages/NewRecipe";
 import UserRecipes from "./recipes/pages/UserRecipes";
+import UpdateRecipe from "./recipes/pages/UpdateRecipe";
 
 const App = () => {
   return (
@@ -26,6 +27,9 @@ const App = () => {
           </Route>
           <Route path="/recipes/new" exact>
             <NewRecipe />
+          </Route>
+          <Route path="/recipes/:recipeId" exact>
+            <UpdateRecipe />
           </Route>
           <Redirect to="/" />
         </Switch>
