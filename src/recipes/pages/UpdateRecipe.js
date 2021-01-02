@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
@@ -40,43 +40,78 @@ const DUMMY_RECIPES = [
 ];
 
 const UpdateRecipe = () => {
+  const [isLoading, setIsLoading] = useState(true);
   //extract from the URL that is part of the URL set up in the routes
   const recipeId = useParams().recipeId;
-  const identifiedRecipe = DUMMY_RECIPES.find((r) => r.id === recipeId);
 
-  const [formState, inputHandler] = useForm(
+  const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
-        value: identifiedRecipe.title,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
       description: {
-        value: identifiedRecipe.description,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
       //add ingredients and instructions!!!
       ingredients: {
-        value: identifiedRecipe.description,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
       instructions: {
-        value: identifiedRecipe.description,
-        isValid: true,
+        value: "",
+        isValid: false,
       },
     },
     true
   );
+
+  const identifiedRecipe = DUMMY_RECIPES.find((r) => r.id === recipeId);
+
+  //avoid infinite loop by wrapping call in useEffect
+  useEffect(() => {
+    setFormData(
+      {
+        title: {
+          value: identifiedRecipe.title,
+          isValid: true,
+        },
+        description: {
+          value: identifiedRecipe.description,
+          isValid: true,
+        },
+        ingredients: {
+          value: identifiedRecipe.ingredients,
+          isValid: true,
+        },
+        instructions: {
+          value: identifiedRecipe.instructions,
+          isValid: true,
+        },
+      },
+      true
+    );
+    setIsLoading(false);
+  }, [setFormData, identifiedRecipe]);
 
   const recipeUpdateSubmitHandler = (event) => {
     event.preventDefault();
     console.log(formState.inputs);
   };
 
-  console.log(recipeId, identifiedRecipe);
   if (!identifiedRecipe) {
     return (
       <div className="center">
         <h2>Could not find recipe!</h2>
+      </div>
+    );
+  }
+  //temporary workaround - only render if you have values
+  if (isLoading) {
+    return (
+      <div className="center">
+        <h2>Loading...</h2>
       </div>
     );
   }
