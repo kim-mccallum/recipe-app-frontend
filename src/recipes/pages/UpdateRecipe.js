@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
+import Card from "../../shared/components/UIElements/Card";
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
@@ -71,27 +72,29 @@ const UpdateRecipe = () => {
 
   //avoid infinite loop by wrapping call in useEffect
   useEffect(() => {
-    setFormData(
-      {
-        title: {
-          value: identifiedRecipe.title,
-          isValid: true,
+    if (identifiedRecipe) {
+      setFormData(
+        {
+          title: {
+            value: identifiedRecipe.title,
+            isValid: true,
+          },
+          description: {
+            value: identifiedRecipe.description,
+            isValid: true,
+          },
+          ingredients: {
+            value: identifiedRecipe.ingredients,
+            isValid: true,
+          },
+          instructions: {
+            value: identifiedRecipe.instructions,
+            isValid: true,
+          },
         },
-        description: {
-          value: identifiedRecipe.description,
-          isValid: true,
-        },
-        ingredients: {
-          value: identifiedRecipe.ingredients,
-          isValid: true,
-        },
-        instructions: {
-          value: identifiedRecipe.instructions,
-          isValid: true,
-        },
-      },
-      true
-    );
+        true
+      );
+    }
     setIsLoading(false);
   }, [setFormData, identifiedRecipe]);
 
@@ -103,7 +106,9 @@ const UpdateRecipe = () => {
   if (!identifiedRecipe) {
     return (
       <div className="center">
-        <h2>Could not find recipe!</h2>
+        <Card>
+          <h2>Could not find recipe!</h2>
+        </Card>
       </div>
     );
   }

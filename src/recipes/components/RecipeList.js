@@ -2,6 +2,7 @@ import React from "react";
 
 import Card from "../../shared/components/UIElements/Card";
 import RecipeItem from "./RecipeItem";
+import Button from "../../shared/components/FormElements/Button";
 
 import "./RecipeList.css";
 
@@ -12,6 +13,7 @@ const RecipeList = (props) => {
       <div className="recipe-list center">
         <Card>
           <h2>No recipes found. Maybe create one?</h2>
+          <Button to="/recipes/new">Share Recipe</Button>
         </Card>
       </div>
     );
