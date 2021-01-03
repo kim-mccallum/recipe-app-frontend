@@ -7,8 +7,24 @@ import "./RecipeItem.css";
 
 const RecipeItem = (props) => {
   const [showRecipe, setShowRecipe] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
   const openRecipeHandler = () => setShowRecipe(true);
   const closeRecipeHandler = () => setShowRecipe(false);
+
+  const showDeleteWarningHandler = () => {
+    setShowConfirmModal(true);
+  };
+
+  const cancelDeleteHandler = () => {
+    setShowConfirmModal(false);
+  };
+
+  const confirmDeleteHandler = () => {
+    setShowConfirmModal(false);
+    console.log("DELETING...");
+  };
+
   return (
     <React.Fragment>
       <Modal
@@ -25,6 +41,26 @@ const RecipeItem = (props) => {
           <p>{props.instructions}</p>
         </div>
       </Modal>
+      <Modal
+        show={showConfirmModal}
+        onCancel={cancelDeleteHandler}
+        header="Are you sure?"
+        footerClass="recipe-item__modal-actions"
+        footer={
+          <React.Fragment>
+            <Button inverse onClick={cancelDeleteHandler}>
+              CANCEL
+            </Button>
+            <Button danger onClick={confirmDeleteHandler}>
+              DELETE
+            </Button>
+          </React.Fragment>
+        }
+      >
+        <p>
+          Do you want to proceed and delete this recipe? This cannot be undone.
+        </p>
+      </Modal>
       <li className="recipe-item">
         <Card className="recipe-item">
           <div className="recipe-item__image">
@@ -39,7 +75,9 @@ const RecipeItem = (props) => {
               VIEW RECIPE
             </Button>
             <Button to={`/recipes/${props.id}`}>EDIT</Button>
-            <Button danger>DELETE</Button>
+            <Button danger onClick={showDeleteWarningHandler}>
+              DELETE
+            </Button>
           </div>
         </Card>
       </li>

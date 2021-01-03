@@ -11,6 +11,7 @@ import Users from "./user/pages/Users";
 import NewRecipe from "./recipes/pages/NewRecipe";
 import UserRecipes from "./recipes/pages/UserRecipes";
 import UpdateRecipe from "./recipes/pages/UpdateRecipe";
+import Auth from "./user/pages/Auth";
 
 const App = () => {
   return (
@@ -30,6 +31,9 @@ const App = () => {
           </Route>
           <Route path="/recipes/:recipeId" exact>
             <UpdateRecipe />
+          </Route>
+          <Route path="/auth" exact>
+            <Auth />
           </Route>
           <Redirect to="/" />
         </Switch>
