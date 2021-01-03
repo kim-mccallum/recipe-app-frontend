@@ -24,15 +24,15 @@
 .nav-links a:hover,
 .nav-links a:active,
 .nav-links a.active {
-  background: #e5f77d;
-  border-color: #292929;
-  color: #292929;
+  background: #fe5d26;
+  /* border-color: #292929; */
+  color: #2b2d42;
 }
 
 .nav-links button {
   cursor: pointer;
-  border: 1px solid #292929;
-  color: #292929;
+  border: 1px solid #2b2d42;
+  color: #2b2d42;
   background: transparent;
   padding: 0.5rem;
   font: inherit;

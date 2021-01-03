@@ -11,6 +11,15 @@ html {
 body {
   margin: 0;
   background: #4d4d4d;
+  color: #2b2d42;
+}
+
+h1,
+h2,
+h3,
+p {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .slide-in-left-enter {

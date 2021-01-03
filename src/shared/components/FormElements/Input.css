@@ -17,25 +17,25 @@
 .form-control textarea {
   width: 100%;
   font: inherit;
-  border: 1px solid #ccc;
-  background: #f8f8f8;
+  border: 1px solid #8f70d7;
+  background: #e6dff6;
   padding: 0.15rem 0.25rem;
 }
 
 .form-control input:focus,
 .form-control textarea:focus {
   outline: none;
-  background: #ebebeb;
-  border-color: #510077;
+  background: #e6dff6;
+  border-color: #805fd3;
 }
 
 .form-control--invalid label,
 .form-control--invalid p {
-  color: red;
+  color: #fb3640;
 }
 
 .form-control--invalid input,
 .form-control--invalid textarea {
-  border-color: red;
-  background: #ffd1d1;
+  border-color: #fb3640;
+  background: #ffd7d9;
 }
