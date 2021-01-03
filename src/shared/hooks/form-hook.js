@@ -5,6 +5,10 @@ const formReducer = (state, action) => {
     case "INPUT_CHANGE":
       let formIsValid = true;
       for (const inputId in state.inputs) {
+        //make sure all properties are defined - if it's undefined, skip that field
+        if (!state.inputs[inputId]) {
+          continue;
+        }
         //ensure that if one input is false, the whole form is invalid
         if (inputId === action.inputId) {
           formIsValid = formIsValid && action.isValid;
