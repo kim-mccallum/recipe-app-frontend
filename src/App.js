@@ -24,34 +24,52 @@ const App = () => {
     setIsLoggedIn(false);
   }, []);
 
+  let routes;
+
+  if (isLoggedIn) {
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Users />
+        </Route>
+        <Route path="/:userId/recipes" exact>
+          <UserRecipes />
+        </Route>
+        <Route path="/recipes/new" exact>
+          <NewRecipe />
+        </Route>
+        <Route path="/recipes/:recipeId" exact>
+          <UpdateRecipe />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Users />
+        </Route>
+        <Route path="/:userId/recipes" exact>
+          <UserRecipes />
+        </Route>
+        <Route path="/auth" exact>
+          <Auth />
+        </Route>
+        <Redirect to="/auth" />
+      </Switch>
+    );
+  }
+
   return (
     // make sure all child components have access to component
     <AuthContext.Provider
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
-      // moves through routes top to bottom and redirects if nothing catches
+      {/* // moves through routes top to bottom and redirects if nothing catches */}
       <Router>
         <MainNavigation />
-        <main>
-          <Switch>
-            <Route path="/" exact>
-              <Users />
-            </Route>
-            <Route path="/:userId/recipes" exact>
-              <UserRecipes />
-            </Route>
-            <Route path="/recipes/new" exact>
-              <NewRecipe />
-            </Route>
-            <Route path="/recipes/:recipeId" exact>
-              <UpdateRecipe />
-            </Route>
-            <Route path="/auth" exact>
-              <Auth />
-            </Route>
-            <Redirect to="/" />
-          </Switch>
-        </main>
+        <main>{routes}</main>
       </Router>
     </AuthContext.Provider>
   );
