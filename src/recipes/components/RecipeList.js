@@ -24,7 +24,7 @@ const RecipeList = (props) => {
         <RecipeItem
           key={recipe.id}
           id={recipe.id}
-          image={recipe.imageUrl}
+          image={recipe.image}
           title={recipe.title}
           description={recipe.description}
           ingredients={recipe.ingredients}
