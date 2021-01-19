@@ -19,7 +19,7 @@ export default function UsersList(props) {
           id={user.id}
           image={user.image}
           name={user.name}
-          recipeCount={user.recipes}
+          recipeCount={user.recipes.length}
         />
       ))}
     </ul>
