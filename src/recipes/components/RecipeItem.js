@@ -89,10 +89,10 @@ const RecipeItem = (props) => {
             <Button inverse onClick={openRecipeHandler}>
               VIEW RECIPE
             </Button>
-            {auth.isLoggedIn && (
+            {auth.userId === props.creatorId && (
               <Button to={`/recipes/${props.id}`}>EDIT</Button>
             )}
-            {auth.isLoggedIn && (
+            {auth.userId === props.creatorId && (
               <Button danger onClick={showDeleteWarningHandler}>
                 DELETE
               </Button>
