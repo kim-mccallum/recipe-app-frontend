@@ -3,11 +3,14 @@ import React, { useState, useContext } from "react";
 import Card from "../../shared/components/UIElements/Card";
 import Button from "../../shared/components/FormElements/Button";
 import Modal from "../../shared/components/UIElements/Modal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import { AuthContext } from "../../shared/context/auth-context";
-
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import "./RecipeItem.css";
 
 const RecipeItem = (props) => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const [showRecipe, setShowRecipe] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -23,13 +26,21 @@ const RecipeItem = (props) => {
     setShowConfirmModal(false);
   };
 
-  const confirmDeleteHandler = () => {
+  const confirmDeleteHandler = async () => {
     setShowConfirmModal(false);
-    console.log("DELETING...");
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/recipes/${props.id}`,
+        "DELETE"
+      );
+      props.onDelete(props.id);
+      // setLoadedPlace(responseData.place);
+    } catch (err) {}
   };
 
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
       <Modal
         show={showRecipe}
         onCancel={closeRecipeHandler}
@@ -66,6 +77,7 @@ const RecipeItem = (props) => {
       </Modal>
       <li className="recipe-item">
         <Card className="recipe-item">
+          {isLoading && <LoadingSpinner asOverlay />}
           <div className="recipe-item__image">
             <img src={props.image} alt={props.title} />
           </div>

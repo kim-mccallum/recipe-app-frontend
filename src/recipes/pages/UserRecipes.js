@@ -23,6 +23,12 @@ const UserRecipes = () => {
     fetchRecipes();
   }, [sendRequest, userId]);
 
+  const deleteRecipeHandler = (deletedRecipeId) => {
+    setLoadedRecipes((prevRecipes) =>
+      prevRecipes.filter((recipe) => recipe.id !== deletedRecipeId)
+    );
+  };
+
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
@@ -31,7 +37,12 @@ const UserRecipes = () => {
           <LoadingSpinner />
         </div>
       )}
-      {!isLoading && loadedRecipes && <RecipeList items={loadedRecipes} />}
+      {!isLoading && loadedRecipes && (
+        <RecipeList
+          items={loadedRecipes}
+          onDeleteRecipe={deleteRecipeHandler}
+        />
+      )}
     </React.Fragment>
   );
 };
