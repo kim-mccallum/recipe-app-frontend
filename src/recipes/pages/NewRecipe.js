@@ -4,6 +4,8 @@ import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
+
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
@@ -35,6 +37,10 @@ const NewRecipe = () => {
         value: "",
         isValid: false,
       },
+      image: {
+        value: "",
+        isValid: false,
+      },
     },
     false
   );
@@ -44,19 +50,14 @@ const NewRecipe = () => {
   const recipeSubmitHandler = async (event) => {
     event.preventDefault();
     try {
-      await sendRequest(
-        "http://localhost:5000/api/recipes",
-        "POST",
-        JSON.stringify({
-          title: formState.inputs.title.value,
-          description: formState.inputs.description.value,
-          ingredients: formState.inputs.ingredients.value,
-          instructions: formState.inputs.instructions.value,
-          creator: auth.userId,
-        }),
-        { "Content-Type": "application/json" }
-      );
-      //redirect
+      const formData = new FormData();
+      formData.append("title", formState.inputs.title.value);
+      formData.append("description", formState.inputs.description.value);
+      formData.append("ingredients", formState.inputs.ingredients.value);
+      formData.append("instructions", formState.inputs.instructions.value);
+      formData.append("creator", auth.userId);
+      formData.append("image", formState.inputs.image.value);
+      await sendRequest("http://localhost:5000/api/recipes", "POST", formData);
       history.push("/");
     } catch (err) {}
   };
@@ -98,6 +99,11 @@ const NewRecipe = () => {
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter the instructions for this recipe."
           onInput={inputHandler}
+        />
+        <ImageUpload
+          id="image"
+          onInput={inputHandler}
+          errorText="Please provide an image."
         />
         <Button type="submit" disabled={!formState.isValid}>
           ADD RECIPE
