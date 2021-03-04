@@ -53,10 +53,8 @@ const Auth = () => {
             "Content-Type": "application/json",
           }
         );
-        auth.login(responseData.user.id); //should only kick in when everything is done
-      } catch (err) {
-        console.log(err);
-      }
+        auth.login(responseData.userId, responseData.token);
+      } catch (err) {}
     } else {
       try {
         const formData = new FormData();
@@ -71,7 +69,7 @@ const Auth = () => {
           formData //API automatically adds headers
         );
 
-        auth.login(responseData.user.id); //should only kick in when everything is done
+        auth.login(responseData.userId, responseData.token); //
       } catch (err) {}
     }
   };
