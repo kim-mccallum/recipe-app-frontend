@@ -97,6 +97,7 @@ const UpdateRecipe = () => {
         }),
         {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.token}`,
         }
       );
       //just redirect to overview of places
