@@ -56,9 +56,14 @@ const NewRecipe = () => {
       formData.append("ingredients", formState.inputs.ingredients.value);
       formData.append("instructions", formState.inputs.instructions.value);
       formData.append("image", formState.inputs.image.value);
-      await sendRequest("http://localhost:5000/api/recipes", "POST", formData, {
-        Authorization: `Bearer ${auth.token}`,
-      });
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/recipes`,
+        "POST",
+        formData,
+        {
+          Authorization: `Bearer ${auth.token}`,
+        }
+      );
       history.push("/");
     } catch (err) {}
   };

@@ -30,7 +30,7 @@ const RecipeItem = (props) => {
     setShowConfirmModal(false);
     try {
       await sendRequest(
-        `http://localhost:5000/api/recipes/${props.id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/recipes/${props.id}`,
         "DELETE",
         null,
         {
@@ -84,7 +84,7 @@ const RecipeItem = (props) => {
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="recipe-item__image">
             <img
-              src={`http://localhost:5000/${props.image}`}
+              src={`${process.env.REACT_APP_ASSET_URL}/${props.image}`}
               alt={props.title}
             />
           </div>

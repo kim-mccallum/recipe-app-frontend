@@ -52,7 +52,7 @@ const UpdateRecipe = () => {
     const fetchRecipe = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/recipes/${recipeId}`
+          `${process.env.REACT_APP_BACKEND_URL}/recipes/${recipeId}`
         );
 
         setLoadedRecipe(responseData.recipe);
@@ -87,7 +87,7 @@ const UpdateRecipe = () => {
     //send post request to update
     try {
       await sendRequest(
-        `http://localhost:5000/api/recipes/${recipeId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/recipes/${recipeId}`,
         "PATCH",
         JSON.stringify({
           title: formState.inputs.title.value,
