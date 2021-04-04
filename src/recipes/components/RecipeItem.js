@@ -83,10 +83,7 @@ const RecipeItem = (props) => {
         <Card className="recipe-item">
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="recipe-item__image">
-            <img
-              src={`${process.env.REACT_APP_ASSET_URL}/${props.image}`}
-              alt={props.title}
-            />
+            <img src={props.image} alt={props.title} />
           </div>
           <div className="recipe-item__info">
             <h2>{props.title}</h2>
