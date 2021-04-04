@@ -55,8 +55,8 @@ const RecipeItem = (props) => {
       >
         <div className="recipe-container">
           <h3>{props.description}</h3>
-          <p>{`Ingredients ${props.ingredients}`}</p>
-          <p>{props.instructions}</p>
+          <p>{`INGREDIENTS:\n ${props.ingredients}`}</p>
+          <p>{`INSTRUCTIONS: ${props.instructions}`}</p>
         </div>
       </Modal>
       <Modal
